@@ -7,19 +7,20 @@ Enter all necessary values within the .env file. An example can be found in the 
     # Environment
     REACT_APP_ENVIRONMENT="live"
     
-    #Mapbox
+    # Mapbox
     REACT_APP_MAPBOX="REPLACEME"
     
-    #Analytics
+    # Analytics
     REACT_APP_ANALYTICS_KEY="REPLACEME"
-	#Tag Manager
+
+	# Tag Manager
 	REACT_APP_TAG_KEY="REPLACEME"
 	
-	#Hotjar
+	# Hotjar
 	REACT_APP_HOTJAR_KEY="REPLACEME"
 	REACT_APP_HOTJAR_SV="REPLACEME"
 	
-	#Facebook Pixel
+	# Facebook Pixel
 	REACT_APP_PIXEL_KEY="REPLACEME"
 
 > All values are necessary and not optional
