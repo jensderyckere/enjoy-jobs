@@ -26,6 +26,8 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                 "weight": items.length + 1,
                 "location": "",
                 "succesful": 1,
+                "description": "",
+                "education_level_id": ""
             }
         ) : section === 'Cursus' ? (
             {
@@ -34,6 +36,7 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                 "course": "",
                 "weight": items.length + 1,
                 "succesful": 1,
+                "currentjob": 0,
             }
         ) : section === 'Ervaring' ? (
             {
@@ -44,7 +47,7 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                 "location": "",
                 "from": "",
                 "till": "",
-                "description": "",
+                "name": "",
             }
         ) : section === 'Taal' ? (
             {
@@ -60,7 +63,6 @@ const ProfileGrid = ({items, inputs, section, update}) => {
         ) : section === 'Competentie' ? (
             {
                 "weight": items.length + 1,
-                "vdab_activity_id": "",
                 "experience": "GEEN",
                 "description": "",
             }
@@ -86,17 +88,11 @@ const ProfileGrid = ({items, inputs, section, update}) => {
         document.body.style.cursor = 'wait';
 
         if (section === "Opleiding") {
-            if (profileForm.vdab_study_id.length === 0) {
-                setError(true);
-                setErrorText('geen opleiding gekozen');
-                document.body.style.cursor = 'auto';
-                return;
-            };
-
             formData.append("from", profileForm.from);
             formData.append("till", profileForm.till ?? today);
             formData.append("at", profileForm.at);
-            formData.append("vdab_study_id", profileForm.vdab_study_id);
+            formData.append("description", profileForm.description);
+            formData.append("education_level_id", profileForm.education_level_id);
             formData.append("weight", profileForm.weight);
             formData.append("location", profileForm.location);
             formData.append("succesful", profileForm.succesful);
@@ -111,18 +107,12 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                 update();
             };
         } else if (section === "Cursus") {
-            if (profileForm.course.length === 0) {
-                setError(true);
-                setErrorText('geen cursus gekozen');
-                document.body.style.cursor = 'auto';
-                return;
-            };
-
             formData.append("from", profileForm.from);
             formData.append("till", profileForm.till ?? today);
             formData.append("weight", profileForm.weight);
-            formData.append("course", profileForm.course);
+            formData.append("course", profileForm.description);
             formData.append("succesful", profileForm.succesful);
+            formData.append("currentjob", profileForm.till ? 1 : 0);
             
             setError(false);
             setErrorText('');
@@ -134,7 +124,7 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                 update();
             };
         } else if (section === "Ervaring") {
-            if (profileForm.vdab_template_id.length === 0) {
+            if (profileForm.name.length === 0) {
                 setError(true);
                 setErrorText('geen job gekozen');
                 document.body.style.cursor = 'auto';
@@ -163,7 +153,7 @@ const ProfileGrid = ({items, inputs, section, update}) => {
             formData.append("vdab_template_id", profileForm.vdab_template_id);
             formData.append("experience", experience);
             formData.append("location", profileForm.location);
-            formData.append("description", profileForm.description);
+            formData.append("name", profileForm.name);
             
             setError(false);
             setErrorText('');
@@ -221,17 +211,9 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                 update();
             };
         } else if (section === 'Competentie') {
-            if (profileForm.vdab_activity_id.length === 0) {
-                setError(true);
-                setErrorText('geen competentie gekozen');
-
-                document.body.style.cursor = 'auto';
-                return;
-            };
-
-            formData.append("vdab_activity_id", profileForm.vdab_activity_id);
             formData.append("weight", profileForm.weight);
             formData.append("description", profileForm.description);
+            formData.append("name", profileForm.name);
             formData.append("experience", profileForm.experience);
 
             setError(false);
@@ -343,16 +325,6 @@ const ProfileGrid = ({items, inputs, section, update}) => {
                     )
                 ) : ''
             }
-            {/* {
-                element.type === "date" ? (
-                    <InputDate 
-                        label={element.label}
-                        id={`${element.id}`}
-                        icon={Date}
-                        action={(e) => setForm(e.target.id, e.target.value)}
-                    />
-                ) : ''
-            } */}
             {
                 element.type === "select" ? (
                     <InputSelect
