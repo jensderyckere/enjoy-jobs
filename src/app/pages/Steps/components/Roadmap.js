@@ -58,7 +58,7 @@ const Roadmap = ({ target }) => {
         {
             "step": 2,
             "title": "Intake",
-            "text": "<p>We organiseren een gesprek bij jouw met één van onze collega’s om de identiteit van jouw bedrijf te definiëren en dieper in te gaan op de collega die gezocht wordt. We luisteren en stellen vragen om zo een actieplan op maat te ontwikkelen.</p>",
+            "text": "<p>We organiseren een gesprek bij jou met één van onze collega’s om de identiteit van jouw bedrijf te definiëren en dieper in te gaan op de collega die gezocht wordt. We luisteren en stellen vragen om zo een actieplan op maat te ontwikkelen.</p>",
             "icon": Intake,
         },
         {

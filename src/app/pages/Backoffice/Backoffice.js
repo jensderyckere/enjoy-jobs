@@ -33,9 +33,10 @@ const Backoffice = () => {
     });
 
     const [ driversLicenses, setDriverLicenses ] = useState();
-    const [ competences, setCompetences ] = useState();
+    // const [ competences, setCompetences ] = useState();
     const [ experiences, setExperiences ] = useState();
-    const [ studies, setStudies ] = useState();
+    // const [ studies, setStudies ] = useState();
+    const [ educations, setEducations ] = useState();
     const [ languages, setLanguages ] = useState();
 
     const [ myCourses, setMyCourses ] = useState();
@@ -78,20 +79,14 @@ const Backoffice = () => {
             const driversLicenseList = await getList('driverslicense/list', currentUser);
             setDriverLicenses(driversLicenseList.map((license) => {return {value: license.id, label: license.description}}));
 
-            const competenceList = await getList('competence/list', currentUser);
-            setCompetences(competenceList.map((license) => {return {value: license.id, label: license.description}}));
-
             const experienceList = await getList('experience/list', currentUser);
             setExperiences(experienceList.map((experience) => {return {value: experience.id, label: experience.description}}));
 
-            const studyList = await getList('study/list', currentUser);
-            setStudies(studyList.map((study) => {return {value: study.id, label: study.description}}));
+            const educationList = await getList('study/educationlevelist', currentUser);
+            setEducations(Object.keys(educationList).map(function(key) {return {value: key, label: educationList[key]}}));
 
             const languageList = await getList('language/list', currentUser);
             setLanguages(languageList.map((language) => {return {value: language.id, label: language.description}}));
-
-            // const picture = await getList('user/profilepicture', currentUser);
-            // setProfilePicture(picture);
  
             const userObj = await viewUserInformation(currentUser);
             setUser(userObj);
@@ -131,6 +126,7 @@ const Backoffice = () => {
 
             const myExperiencesData = await getList('experience', currentUser);
             setMyExperiences(myExperiencesData);
+            console.log(myStudiesData)
 
             const myLanguagesData = await getList('language', currentUser);
             setMyLanguages(myLanguagesData);
@@ -359,62 +355,6 @@ const Backoffice = () => {
         });
     }; 
 
-    // const uploadProfilePicture = async (e, added) => {
-    //     e.preventDefault();
-
-    //     if (added) {
-    //         const input = document.getElementById('profile-picture');
-    //         input.click();
-    
-    //         input.onchange = async () => {
-    //             const formData = new FormData();
-    //             formData.append("image", added ? input.files[0] : '');
-    
-    //             const result = await postList("user/profilepicture", currentUser, formData);
-    
-    //             if (result.status === 1) {
-    //                 setShowError({
-    //                     message: '',
-    //                     status: false,
-    //                 });
-                    
-    //                 window.location.reload();
-    //             } else {
-    //                 setShowError({
-    //                     message: "Jouw profielfoto kon niet worden opgeslagen",
-    //                     status: true,
-    //                 });
-    //                 window.scrollTo({
-    //                     top: 0,
-    //                     behavior: 'smooth',
-    //                 });
-    //             };
-    //         };
-    //     } else {
-    //         const formData = new FormData();
-    //         formData.append("image", added ? '' : '');
-
-    //         const result = await postList("user/profilepicture", currentUser, formData);
-
-    //         if (result.status === 1) {
-    //             setShowError({
-    //                 message: '',
-    //                 status: false,
-    //             });
-    //             window.location.reload();
-    //         } else {
-    //             setShowError({
-    //                 message: "Jouw profielfoto kon niet worden opgeslagen",
-    //                 status: true,
-    //             });
-    //             window.scrollTo({
-    //                 top: 0,
-    //                 behavior: 'smooth',
-    //             });
-    //         };
-    //     };
-    // };
-
     return user ? (
         <Layout>
             {
@@ -551,20 +491,6 @@ const Backoffice = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="col-12 col-md-6 col-lg-4">
-                            * Check if image exists
-                            <div className="profile__item--content--img" style={{
-                                backgroundImage: `url(${profilePicture.status !== 0 ? `https://enjoy.jobs${profilePicture}` : Test})`
-                            }}>
-                                <span className="profile__item--content--img__edit">
-                                    <img src={Edit} alt="edit" onClick={(e) => uploadProfilePicture(e, true)} />
-                                </span>
-                                <span className="profile__item--content--img__delete">
-                                    <img src={Trash} alt="delete" onClick={(e) => uploadProfilePicture(e, false)} />
-                                </span>
-                                <input id="profile-picture" type="file" accept="image/*" />
-                            </div>
-                        </div> */}
                     </div>
                 </ProfileItem>
                 <ProfileItem info={{
@@ -709,9 +635,14 @@ const Backoffice = () => {
                             },
                             {
                                 "label": "Opleiding",
-                                "id": "opleidingen-vdab_study_id",
+                                "id": "opleidingen-description",
+                                "type": "text",
+                            },
+                            {
+                                "label": "Niveau",
+                                "id": "opleidingen-education_level_id",
                                 "type": "search",
-                                "items": studies ? studies : '',
+                                "items": educations ? educations : '',                            
                             },
                             {
                                 "label": "Instituut",
@@ -760,9 +691,8 @@ const Backoffice = () => {
                             },
                             {
                                 "label": "Ervaring",
-                                "id": "ervaring-vdab_template_id",
-                                "type": "search",
-                                "items": experiences ? experiences : '',                            
+                                "id": "ervaring-name",
+                                "type": "text",
                             },
                             {
                                 "label": "Werkgever",
@@ -773,12 +703,7 @@ const Backoffice = () => {
                                 "label": "Plaats",
                                 "id": "ervaring-location",
                                 "type": "text",
-                            },
-                            {
-                                "label": "Omschrijving",
-                                "id": "ervaring-description",
-                                "type": "text",
-                            },
+                            }
                         ]}
                     />
                 </ProfileItem>
@@ -876,14 +801,8 @@ const Backoffice = () => {
                         items={myCompetences ? myCompetences : []}
                         inputs={[
                             {
-                                "label": "Competentie",
-                                "id": "competentie-vdab_activity_id",
-                                "type": "search",
-                                "items": competences ? competences : ''
-                            },
-                            {
                                 "label": "Beschrijving",
-                                "id": "competentie-description",
+                                "id": "competentie-name",
                                 "type": "text",
                             },
                         ]}
