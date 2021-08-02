@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SwiperCore, { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -6,13 +6,24 @@ import './_Team.scss';
 import 'swiper/swiper.scss';
 import 'swiper/components/pagination/pagination.scss';
 
-import portraitFien from '../../../assets/photos/portrait_fien.png';
-import portraitSophie from '../../../assets/photos/portrait_sophie.jpg';
-import portraitFien2 from '../../../assets/photos/portrait_fien2.jpeg';
+import { useAPI } from '../../../services/api.service';
 
 SwiperCore.use([Pagination]);
 
 const Team = () => {
+    const [ members, setMembers ] = useState(null);
+    const { getEmployees } = useAPI();
+
+    const fetchEmployees = useCallback(async () => {
+        const data = await getEmployees();
+        setMembers(data);
+        console.log(data)
+    }, [ getEmployees ]);
+
+    useEffect(() => {
+        fetchEmployees();
+    }, [ fetchEmployees ]);
+
     const animateCard = (bool, index) => {
         const memberCard = document.getElementsByClassName('team__members--member')[index];
 
@@ -23,28 +34,7 @@ const Team = () => {
         };
     };
 
-    const members = [
-        {
-            "name": "Fien Fourneau",
-            "title": "Hartwerkende HR Consultant",
-            "img": portraitFien,
-            "text": "Fien heeft een achtergrond in communicatie en gebruikt deze graag dagelijks bij Enjoy Jobs. Door aandachtig te luisteren kan ze snel de match leggen tussen de verwachtingen van bedrijven en kandidaten. Zelf in stressvolle situaties bewaart ze haar rust en focus en straalt ze dit uit naar haar collega’s. ",
-        },
-        {
-            "name": "Sophie Verschelde",
-            "title": "Hartwerkende Expert HR/Zaakvoerder",
-            "img": portraitSophie,
-            "text": "Met haar +20 jaar ervaring binnen rekrutering en selectie is Sophie een echte professional in haar vak. Ze deelt haar kennis graag met anderen, wat haar een goede coach maakt. Haar intuïtie laat haar zelden in de steek. Haar passie voor HR, gedrevenheid en aanhoudend enthousiasme geeft het volledige team een boost.",
-        },
-        {
-            "name": "Fien Desmet",
-            "title": "Hartwerkende HR Consultant",
-            "img": portraitFien2,
-            "text": "Fien is de jongste spring in het veld, die het goede in elke persoon naar boven brengt. De waarden eerlijkheid en respect draagt ze hoog in het vaandel. Je kan haar omschrijven als een bezige bij en een positieve denker. Fien kan zich zoals een kameleon snel aanpassen in veranderende omgeving.",
-        },
-    ];
-
-    return (
+    return members ? (
             <section className="team bg-tertiary">
                 <div className="container">
                     <h1 className="team__title">
@@ -78,15 +68,15 @@ const Team = () => {
                                                 onMouseLeave={() => animateCard(false, index)} 
                                             >
                                                 <div className="team__members--member__content">
-                                                    <div className="team__members--member__content--img" style={{backgroundImage: `url(${element.img})`}}></div>
+                                                    <div className="team__members--member__content--img" style={{backgroundImage: `url(${encodeURI(element.avatarurl)})`}}></div>
                                                     <div className="team__members--member__content--text">
                                                         <h5>{element.name}</h5>
-                                                        <h6>{element.title}</h6>
-                                                        <p>{element.text}</p>
+                                                        <h6>{element.position}</h6>
+                                                        <p>{element.description}</p>
                                                     </div>
                                                 </div>
                                                 <h5 className="team__members--member__name">{element.name}</h5>
-                                                <h5 className="team__members--member__function">{element.title}</h5>
+                                                <h5 className="team__members--member__function">{element.position}</h5>
                                             </div>
                                         </SwiperSlide>
                                     )
@@ -96,7 +86,7 @@ const Team = () => {
                     </div>
                 </div>
             </section>
-    )
+    ) : ''
 };
 
 export default Team;

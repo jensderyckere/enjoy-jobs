@@ -25,7 +25,7 @@ const ProfileGridMob = ({index, section, element, deleteItem}) => {
                     <div className="profile-grid__body">
                         {
                             Object.keys(element).map((innerElement, innerIndex) => {
-                                return innerElement !== 'id' ? innerElement !== 'weight' ? innerElement !== 'vdab_study_id' ? innerElement !== 'vdab_template_id' ? innerElement !== 'experience' ? innerElement !== 'vdab_language_id' ? innerElement !== 'vdab_drivers_license_id' ? innerElement !== 'vdab_activity_id' ? (
+                                return element[innerElement] && innerElement !== 'id' ? innerElement !== 'weight' ? innerElement !== 'vdab_study_id' ? innerElement !== 'vdab_template_id' ? innerElement !== 'experience' ? innerElement !== 'vdab_language_id' ? innerElement !== 'vdab_drivers_license_id' ? innerElement !== 'vdab_activity_id' ? (
                                     <div className="d-flex align-items-center" key={innerIndex}>
                                         <p className="profile-grid__body--name">
                                             <strong>
@@ -52,7 +52,11 @@ const ProfileGridMob = ({index, section, element, deleteItem}) => {
                                                         'Niveau (0-10)'
                                                     ) : innerElement === 'hobby' ? (
                                                         'Hobby'
-                                                    ) : ''
+                                                    ) : innerElement === "currentjob" ? (
+                                                        "Tot op heden"
+                                                    ) : innerElement === "education_level_id" ? (
+                                                        "Niveau"
+                                                    ) : ""
                                                 }
                                             </strong>
                                         </p>

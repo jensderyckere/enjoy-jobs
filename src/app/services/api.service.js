@@ -265,6 +265,54 @@ const APIProvider = ({children}) => {
         return blogs;
     };
 
+    const getCompanyReviews = async (id) => {
+        const url = `${BASE_URL}/coreview`;
+
+        const reviews = await fetch(
+            url,
+            {
+                method: 'GET',
+                mode: 'cors',
+            }
+        ).then((result) => {
+            return result.json();
+        });
+
+        return reviews;
+    };
+
+    const getClientReviews = async (id) => {
+        const url = `${BASE_URL}/cvreview`;
+
+        const reviews = await fetch(
+            url,
+            {
+                method: 'GET',
+                mode: 'cors',
+            }
+        ).then((result) => {
+            return result.json();
+        });
+
+        return reviews;
+    };
+
+    const getEmployees = async (id) => {
+        const url = `${BASE_URL}/employee`;
+
+        const employees = await fetch(
+            url,
+            {
+                method: 'GET',
+                mode: 'cors',
+            }
+        ).then((result) => {
+            return result.json();
+        });
+
+        return employees;
+    };
+
     const getList = async (listType, bearer) => {
         let url = `${BASE_URL}/${listType}`;
 
@@ -533,6 +581,9 @@ const APIProvider = ({children}) => {
             sendContact,
             apply,
             refreshService,
+            getCompanyReviews,
+            getClientReviews,
+            getEmployees
         }}>
             {children}
         </APIContext.Provider>
