@@ -48,15 +48,15 @@ const References = ({ target, references }) => {
                                     <div className="references__item">
                                         {
                                             target === "audience" ? (
-                                                <h2>{element.initials} {element.name}</h2>
+                                                <h2>{element.name} {element.initials}</h2>
                                             ) : (
                                                 <a target="_blank" rel="noopener noreferrer" href={`${element.url}`}>
                                                     <h2>{element.name}</h2>
                                                 </a>
                                             )
                                         }
-
-                                        <h4>{moment(element.date).format('LL')}</h4>
+                                        
+                                        <h4>{ element.date && moment(element.date).format('LL') }</h4>
                                         <p dangerouslySetInnerHTML={{__html: element.description}}></p>
                                         <img src={Citaat} alt="citaat" />
                                     </div>

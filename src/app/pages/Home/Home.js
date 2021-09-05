@@ -11,7 +11,6 @@ const Home = () => {
     return (
         <Layout>
             <Head />
-            {/* Vervang alternative door een "Waarvoor kan je bij ons terecht? " */}
             { target === 'audience' ? <SearchEngine /> : <WhySubjects />}
             <About />
             { target !== 'audience' && <WhyFullSubjects />}
