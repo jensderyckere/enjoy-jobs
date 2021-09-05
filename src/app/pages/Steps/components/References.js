@@ -1,5 +1,5 @@
 import React from 'react';
-import SwiperCore, { Pagination } from 'swiper';
+import SwiperCore, { Pagination, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import './_References.scss';
@@ -13,7 +13,7 @@ import moment from 'moment'
 import 'moment/locale/nl-be';
 moment.locale('nl-be');
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Autoplay]);
 
 const References = ({ target, references }) => {
     return (
@@ -35,6 +35,10 @@ const References = ({ target, references }) => {
                     pagination={{
                         clickable: true,
                         dynamicBullets: true,
+                    }}
+                    loop={true}
+                    autoplay={{
+                        delay: 20000
                     }}
                 >
                     {
