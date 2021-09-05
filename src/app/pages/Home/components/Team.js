@@ -17,7 +17,6 @@ const Team = () => {
     const fetchEmployees = useCallback(async () => {
         const data = await getEmployees();
         setMembers(data);
-        console.log(data)
     }, [ getEmployees ]);
 
     useEffect(() => {

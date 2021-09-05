@@ -28,7 +28,7 @@ const About = () => {
     }];
 
     const goToRoadmap = () => {
-        history.push('/roadmap');
+        history.push(`/roadmap/${target === 'audience' ? 'audience' : 'firm'}`);
     };
 
     const goToContact = () => {

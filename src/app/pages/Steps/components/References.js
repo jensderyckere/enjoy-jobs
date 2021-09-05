@@ -1,5 +1,5 @@
 import React from 'react';
-import SwiperCore, { Pagination } from 'swiper';
+import SwiperCore, { Pagination, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import './_References.scss';
@@ -13,7 +13,7 @@ import moment from 'moment'
 import 'moment/locale/nl-be';
 moment.locale('nl-be');
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Autoplay]);
 
 const References = ({ target, references }) => {
     return (
@@ -36,6 +36,10 @@ const References = ({ target, references }) => {
                         clickable: true,
                         dynamicBullets: true,
                     }}
+                    loop={true}
+                    autoplay={{
+                        delay: 20000
+                    }}
                 >
                     {
                         references ? references.map((element, index) => {
@@ -44,15 +48,15 @@ const References = ({ target, references }) => {
                                     <div className="references__item">
                                         {
                                             target === "audience" ? (
-                                                <h2>{element.initials} {element.name}</h2>
+                                                <h2>{element.name} {element.initials}</h2>
                                             ) : (
                                                 <a target="_blank" rel="noopener noreferrer" href={`${element.url}`}>
                                                     <h2>{element.name}</h2>
                                                 </a>
                                             )
                                         }
-
-                                        <h4>{moment(element.date).format('LL')}</h4>
+                                        
+                                        <h4>{ element.date && moment(element.date).format('LL') }</h4>
                                         <p dangerouslySetInnerHTML={{__html: element.description}}></p>
                                         <img src={Citaat} alt="citaat" />
                                     </div>

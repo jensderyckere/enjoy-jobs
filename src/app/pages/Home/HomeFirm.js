@@ -5,14 +5,14 @@ import { useToolbox } from '../../services'
 import { Layout } from '../../layouts';
 import { About, BlogsSection, Contact, Head, SearchEngine, Team, WhyFullSubjects, WhySubjects } from './components';
 
-const Home = () => {
+const HomeFirm = () => {
     const { target } = useToolbox();
     const history = useHistory();
     document.title = 'Enjoy Jobs | Startpagina';
 
     useEffect(() => {
-        if (target === "firm") {
-            history.push('/firms');
+        if (target === "audience") {
+            history.push('/');
         };
     }, [history, target]);
 
@@ -29,4 +29,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomeFirm;

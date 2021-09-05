@@ -11,6 +11,7 @@ import { ToolboxProvider, APIProvider } from './services';
 
 // Config
 import { clientConfig } from "./config";
+import HomeFirm from './pages/Home/HomeFirm';
 
 function App() {
     /** Facebook Pixel */
@@ -43,6 +44,9 @@ function App() {
         <Switch basename="/">
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route exact path="/firms">
+              <HomeFirm />
             </Route>
             <Route exact path="/requirements">
               <Requirements />
