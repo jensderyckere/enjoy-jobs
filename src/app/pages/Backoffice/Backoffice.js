@@ -126,7 +126,6 @@ const Backoffice = () => {
 
             const myExperiencesData = await getList('experience', currentUser);
             setMyExperiences(myExperiencesData);
-            console.log(myStudiesData)
 
             const myLanguagesData = await getList('language', currentUser);
             setMyLanguages(myLanguagesData);

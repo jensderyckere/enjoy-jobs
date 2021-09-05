@@ -15,6 +15,7 @@ export const Layout = ({children}) => {
     const getCurrentPage = () => {
         const path = window.location.pathname;
         if (path === '/') return 'home';
+        if (path === '/firms') return 'home';
         if (path === '/roadmap/firm') return 'roadmap/firm';
         if (path === '/roadmap/audience') return 'roadmap/audience';
         if (path === '/vacancies') return 'vacancies';
