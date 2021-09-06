@@ -106,7 +106,7 @@ const Header = ({selectedTab}) => {
                     </div>
                     <nav className="header__nav--navigation">
                         <ul>
-                            <li><NavLink to="/" id={(selectedTab === 'home') ? 'nav-colored' : ''}>Starpagina</NavLink></li>
+                            <li><NavLink to="/" id={(selectedTab === 'home') ? 'nav-colored' : ''}>Startpagina</NavLink></li>
                             <li><NavLink to={`/roadmap/${target === "audience" ? "audience" : "firm"}`} id={(selectedTab === 'roadmap/firm') ? 'nav-colored' : (selectedTab === 'roadmap/audience') ? 'nav-colored' : ''}>Onze aanpak</NavLink></li>
                             <li><NavLink to="/vacancies" id={(selectedTab === 'vacancies') ? 'nav-colored' : ''}>Vacatures</NavLink></li>
                             <li><NavLink to="/contact" id={(selectedTab === 'contact') ? 'nav-colored' : ''}>Contact</NavLink></li>
